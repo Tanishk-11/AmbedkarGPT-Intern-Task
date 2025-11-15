@@ -60,7 +60,7 @@ conda activate intern_task
 
 Step 3: Create Project Files
 
-This repository contains main.py and this README.md. You must create the other two required files.
+This repository should contain main.py and this README.md. You must create the other two required files.
 
 Create requirements.txt:
 Create a file named requirements.txt and paste the following dependencies into it:
@@ -101,7 +101,7 @@ Step 5: Set Up Ollama
 
 This application requires the Ollama service to be running locally.
 
-Install Ollama: Download and install the application from ollama.ai.
+Install Ollama: Download and install the application from https://ollama.ai/
 
 Run Ollama: Ensure the Ollama application is running in the background.
 
