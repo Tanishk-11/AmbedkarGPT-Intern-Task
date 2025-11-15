@@ -1,84 +1,56 @@
-# AmbedkarGPT-Intern-Task
+# How to Run AmbedkarGPT
 
-This project is a submission for the Kalpit Pvt Ltd AI Intern Assignment. It is a simple, command-line Q&A system that implements a complete Retrieval-Augmented Generation (RAG) pipeline using LangChain, Ollama, and ChromaDB.
-
-The system ingests a provided text file (`speech.txt`) and answers user questions based *solely* on the content of that document.
-
-## RAG Pipeline Overview
-
-This project follows the 5 fundamental steps of a RAG pipeline:
-
-1.  **Load:** The `speech.txt` file is loaded into memory using `TextLoader`.
-2.  **Split:** The document is split into smaller, manageable chunks using `RecursiveCharacterTextSplitter`.
-3.  **Embed & Store:** Each chunk is converted into a numerical vector (an embedding) using `HuggingFaceEmbeddings` and stored in a local, in-memory `ChromaDB` vector store.
-4.  **Retrieve:** When a user asks a question, the system converts the question into an embedding and uses it to find the most semantically similar chunks from the vector store.
-5.  **Generate:** The original question and the retrieved text chunks (as context) are passed to the `Ollama` LLM (`Mistral 7B`), which generates a final answer grounded in the provided text.
-
-## Technical Stack
-
-* **Language:** Python 3.8+
-* **Framework:** LangChain
-* **LLM:** Ollama with Mistral 7B (specifically `mistral:7b-instruct-q2_K`)
-* **Embeddings:** HuggingFace `sentence-transformers/all-MiniLM-L6-v2`
-* **Vector Store:** ChromaDB
+This file provides two methods to run this project: locally on your own machine or on Google Colab.
 
 ---
 
-## Option 1: Local Setup & Execution (Recommended)
+## Option 1: Local Setup & Execution
 
-Follow these steps to run the application on your local machine (e.g., in VS Code).
+Follow these steps to run the application on your local computer.
 
-### Step 1: Clone the Repository
-
-Clone this GitHub repository to your local machine (making sure to replace `YOUR_USERNAME` with your GitHub username) and navigate into the new project folder.
+### Step 1: Set Up the Project
+First, clone this repository to your computer and navigate into the project folder.
 
 ### Step 2: Create a Python Environment
+It is highly recommended to use a virtual environment. You can create one using `venv` or `conda` and then activate it.
 
-It is highly recommended to use a virtual environment. Create a new environment using your preferred tool (like `venv` or `conda`) and activate it.
+### Step 3: Install Dependencies
+Once your environment is active, you must install all the required Python packages. All packages are listed in the `requirements.txt` file. You can install them by running `pip install -r requirements.txt` in your terminal.
 
-### Step 3: Create Project Files
+### Step 4: Set Up Ollama
+This application requires the Ollama service to run the language model locally.
 
-This repository should contain `main.py` and this `README.md`. You must create the other two required files.
+1.  **Install Ollama:** Go to the official Ollama website (`ollama.ai`) and download and install the application for your operating system.
+2.  **Run Ollama:** After installation, make sure the Ollama application is running in the background.
+3.  **Pull the Model:** You must download the specific Mistral 7B model required for this project. Open your terminal and run the command `ollama pull mistral:7b-instruct-q2_K`.
 
-1.  **Create `requirements.txt`:**
-    Create a file named `requirements.txt`. Inside this file, you will need to list all the required Python packages: `langchain`, `langchain-classic`, `langchain-core`, `langchain-community`, `langchain-text-splitters`, `langchain-ollama`, `langchain-huggingface`, `chromadb`, `sentence-transformers`, and `torch`.
+### Step 5: Run the Application
+With your environment activated, all dependencies installed, and Ollama running, you can now start the Q&A bot.
 
-2.  **Create `speech.txt`:**
-    Create a file named `speech.txt` and paste the provided speech excerpt into it.
+From your terminal, run the command `python main.py`.
 
-### Step 4: Install Dependencies
-
-Install all the required Python packages by running the `pip install -r requirements.txt` command in your terminal.
-
-### Step 5: Set Up Ollama
-
-This application requires the Ollama service to be running locally.
-
-1.  **Install Ollama:** Download and install the application from the official Ollama website.
-2.  **Run Ollama:** Ensure the Ollama application is running in the background.
-3.  **Pull the Model:** This code uses the smallest quantized version of Mistral 7B (`q2_K`). You must pull this model by running the `ollama pull mistral:7b-instruct-q2_K` command in your terminal.
-
-### Step 6: Run the Application
-
-Once your environment is set up and Ollama is running, you can start the Q&A bot by executing the main Python script from your terminal: `python main.py`.
-
-You will see the prompt `RAG bot is ready! Type 'quit' to exit.`.
-
-**Example Questions:**
-* `What is the real remedy?`
-* `What is the work of social reform like?`
+The script will start, and you will see a message "RAG bot is ready! Type 'quit' to exit." You can now ask questions based on the provided text.
 
 ---
 
 ## Option 2: Alternative Setup (Google Colab)
 
-If you have hardware limitations (e.g., low RAM) and cannot run the Mistral 7B model locally, you can use a Google Colab notebook to verify that the code is fully functional.
+If your local computer does not have enough RAM to run the Mistral 7B model, you can use Google Colab as a free alternative to verify that the code is fully functional.
 
-The general steps are:
-1.  Open a new Google Colab notebook.
-2.  In the first cell, install the Ollama service.
-3.  In the next cell, start the Ollama server and pull the required Mistral model (`mistral:7b-instruct-q2_K`).
-4.  In a new cell, install all the Python dependencies (listed in the `requirements.txt` section above) using `pip install`.
-5.  Use Colab's `%%writefile` magic command to create the `speech.txt` file and paste the speech text into it.
-6.  Use `%%writefile` again to create the `main.py` file and paste the entire Python script into it.
-7.  Finally, run the script by executing `!python main.py` in a new cell to verify the RAG pipeline works.
+### Step 1: Open a New Notebook
+Go to Google Colab and create a new, blank notebook.
+
+### Step 2: Install and Run Ollama
+In the first code cell, you need to install and start the Ollama service. You can do this by running the curl command to install it, then running `ollama serve` in the background, and finally using `ollama pull mistral:7b-instruct-q2_K` to download the required model.
+
+### Step 3: Install Python Dependencies
+In the next code cell, you must install all the Python packages listed in the `requirements.txt` file using `pip install`.
+
+### Step 4: Create Project Files
+You will need to create the `speech.txt` and `main.py` files inside the Colab environment. You can do this by using the `%%writefile` magic command.
+
+1.  Create a new cell and use `%%writefile speech.txt`. On the following lines, paste the full text of the speech excerpt.
+2.  Create another new cell and use `%%writefile main.py`. On the following lines, paste the entire contents of your `main.py` script.
+
+### Step 5: Run the Project
+Finally, in a new code cell, run the command `!python main.py`. This will execute your script within the Colab environment, which has enough RAM to load the model. You will see the script initialize and answer a test question, proving the pipeline works.
